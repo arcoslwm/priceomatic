@@ -6,6 +6,7 @@ COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
+COPY ./products ./products
 COPY *.go ./
 
 RUN go build -o /priceomatic

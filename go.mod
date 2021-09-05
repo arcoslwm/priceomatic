@@ -8,3 +8,5 @@ require (
 	github.com/klauspost/compress v1.13.5 // indirect
 	golang.org/x/sys v0.0.0-20210831042530-f4d43177bf5e // indirect
 )
+
+replace github.com/KlareTeam/interview-challenges/go/pricematic/products => ../products
