@@ -1,4 +1,5 @@
 .idea/*
 .env
+local.env
 .vscode/
 steps.txt

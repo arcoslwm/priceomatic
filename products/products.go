@@ -5,15 +5,15 @@ import (
 )
 
 func GetProducts (c *fiber.Ctx) error {
-    return c.SendString("list all products")
+    return c.SendString("list all products resonse")
 }
 
 func GetProduct (c *fiber.Ctx) error {
-    return c.SendString("return one product")
+    return c.SendString("return one product response")
 }
 
 func AddProduct (c *fiber.Ctx) error {
-    return c.SendString("add product")
+    return c.SendString("add new product")
 }
 
 func UpdateProduct (c *fiber.Ctx) error {
