@@ -16,15 +16,9 @@ func main() {
 
     loadDotEnv()
     initDB()
-
-    app.Get("/",index)
     setRoutes(app)
 
 	app.Listen(":8080")
-}
-
-func index(c *fiber.Ctx) error {
-    return c.SendString("func index Hola Go👋!! ")
 }
 
 func loadDotEnv()  {
@@ -39,29 +33,25 @@ func initDB()  {
 
     envDsn := os.Getenv("DSN_POSTGRES")
 
-    log.Print("Connecting to PostgreSQL DB...")
-    dsn := envDsn
-
+    // log.Print("Connecting to PostgreSQL DB: ",envDsn)
     var err error
-    database.DBConn, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+    database.DBConn, err = gorm.Open(postgres.Open(envDsn), &gorm.Config{})
 
     if err != nil {
         log.Fatal("Failed to connect to database. \n", err)
         os.Exit(2)
     }
     log.Println("connected")
+    database.DBConn.AutoMigrate(&products.Product{})
+    log.Println("migrated")
 }
 
 func setRoutes (app *fiber.App) {
-
-    // * GET `/api/v1/products` <-- Lista todos los productos
-    // * GET `/api/v1/products/:id` <-- Obtiene el producto :id
-    // * POST `/api/vi/products` <-- Inserta un producto en la base de datos
-
-    // * [BONUS] `PATCH /api/vi/products/:id` <-- Actualiza uno o mas campos del producto :id
-    // * [BONUS] `DELETE /api/vi/products/:id` <-- Elimina el producto :id
-
     app.Get("/api/v1/products", products.GetProducts)
     app.Get("/api/v1/products/:id", products.GetProduct)
     app.Post("/api/v1/products", products.AddProduct)
+    app.Delete("/api/v1/products/:id", products.DeleteProduct)
+    /**
+     * // TODO: // * [BONUS] `PATCH /api/vi/products/:id` <-- Actualiza uno o mas campos del producto :id
+     */
 }

@@ -12,7 +12,7 @@ services:
     env_file:
       - local.env
     depends_on:
-            - postgres
+      - postgres
 
   postgres:
     image: postgres:latest
