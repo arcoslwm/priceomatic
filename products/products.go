@@ -12,9 +12,9 @@ type Product struct {
     gorm.Model
     // ``
     // Id uint `gorm:"primaryKey" json:"id"`
-    ID        uint       `gorm:"primary_key";json:"id"`
-    Nombre string `gorm:"size:120"; json:"nombre"`
-    Precio uint `json:"precio"`
+    ID        uint       `gorm:"primary_key"; json:"id"`
+    Name string `gorm:"size:120"; json:"name"`
+    Price uint `json:"price"`
     CreatedAt time.Time  `json:"-"`
     UpdatedAt time.Time  `json:"-"`
     DeletedAt *time.Time `json:"-"`

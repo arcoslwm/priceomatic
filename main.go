@@ -2,6 +2,7 @@ package main
 
 import (
     "log"
+    "fmt"
     "os"
     "github.com/gofiber/fiber/v2"
     "github.com/joho/godotenv"
@@ -9,6 +10,8 @@ import (
     "github.com/KlareTeam/interview-challenges/go/pricematic/database"
     "gorm.io/driver/postgres"
     "gorm.io/gorm"
+    "io/ioutil"
+    "encoding/json"
 )
 
 func main() {
@@ -16,6 +19,7 @@ func main() {
 
     loadDotEnv()
     initDB()
+    readLocalJsonData()
     setRoutes(app)
 
 	app.Listen(":8080")
@@ -44,6 +48,26 @@ func initDB()  {
     log.Println("connected")
     database.DBConn.AutoMigrate(&products.Product{})
     log.Println("migrated")
+}
+
+func readLocalJsonData()  {
+
+    // Open our jsonFile
+    jsonFile, err := os.Open("data.json")
+    // if we os.Open returns an error then handle it
+    if err != nil {
+        log.Print("open data.json error: ",err)
+    }
+    // defer the closing of our jsonFile so that we can parse it later on
+    defer jsonFile.Close()
+
+    byteValue, _ := ioutil.ReadAll(jsonFile)
+
+    var result map[string]interface{}
+    json.Unmarshal([]byte(byteValue), &result)
+    fmt.Println(result)
+    log.Print(" data: ",result)
+
 }
 
 func setRoutes (app *fiber.App) {

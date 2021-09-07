@@ -6,5 +6,7 @@
 - docker-compose >= 1.27
 
 ## installation
+crear archivo 'local.env' con variables especificadas en 'local.env.example'
 
-sudo docker-compose up -d --build
+correr:
+docker-compose up
